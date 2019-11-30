@@ -106,7 +106,7 @@
         </div>
     </div> 
     <div class="container">
-        <h2 class="text-center">Our Products</h2>
+        <h2 class="text-center">Our Products 5555555</h2>
         <div class="row">
             <?php
                 $sql = "SELECT * FROM product ORDER BY id";
