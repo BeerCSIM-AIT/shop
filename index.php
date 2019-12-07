@@ -131,6 +131,12 @@
                                 </p>
                                 <p>
                                     <a href="#" class="btn btn-success">Add to basket</a>
+                                    <a href="editproduct.php?pid=<?php echo $prd->id?>" class="btn btn-warning">
+                                        <i class="glyphicon glyphicon-pencil"></i> Edit
+                                    </a>
+                                    <a href="editproduct.php?pid=<?php echo $prd->id?>" class="btn btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i> Edit
+                                    </a>
                                 </p>
                             </div>
                         </div>
