@@ -31,6 +31,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Menu</a></li>
+                <li><a href="searchproduct.php">Search</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php 
@@ -134,8 +135,8 @@
                                     <a href="editproduct.php?pid=<?php echo $prd->id?>" class="btn btn-warning">
                                         <i class="glyphicon glyphicon-pencil"></i> Edit
                                     </a>
-                                    <a href="editproduct.php?pid=<?php echo $prd->id?>" class="btn btn-danger">
-                                        <i class="glyphicon glyphicon-trash"></i> Edit
+                                    <a href="deleteproduct.php?pid=<?php echo $prd->id?>" class="btn btn-danger lnkDelete" id="">
+                                        <i class="glyphicon glyphicon-trash"></i> Delete
                                     </a>
                                 </p>
                             </div>
@@ -150,5 +151,19 @@
     </div>   
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".lnkDelete").click(function(){
+                if(confirm("Confirm delete?")){
+                    return true;
+                }else{
+                    return false;
+                } 
+
+                //return confirm("Confirm delete?");        
+            });
+        });
+        
+    </script>
 </body>
 </html>

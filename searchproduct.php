@@ -1,25 +1,6 @@
 <?php
     session_start();
     include("connect.php");
-    if(!isset($_GET['pid']) || $_GET['pid']==""){
-        header("Location:index.php");
-    }
-    else{
-        $pid = $_GET['pid'];
-    }
-    $sql="SELECT * FROM product WHERE id = $pid";
-    $result = $conn->query($sql);
-    if(!$result){
-        echo "Error : " . $conn->error;
-    }
-    else{
-        if($result->num_rows>0){
-            $prd = $result->fetch_object();
-        }
-        else{
-            $prd=NULL;
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +31,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
                 <li><a href="#">Menu</a></li>
+                <li><a href="searchproduct.php">Search</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php 
@@ -86,59 +68,45 @@
         
     </nav>
     <div class="container">
-        <h2>Edit Product</h2>
         <div class="row">
-            <div class="col-md-6">
-                <div class="thumbnail">
-                    <img src="images/products/<?php echo $prd->picture;?>" alt="">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <form action="updateproduct.php" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <h2>Search Product</h2>
+            <div class="col-md-12">
+                <form action="" method="post">
                     <div class="form-group">
-                        <label for="name" class="control-label col-md-3">Name:</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtName" class="form-control" value="<?php echo $prd->name; ?>">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="txtSearch" placeholder="กรอกข้อมูล">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="control-label col-md-3">Description:</label>
-                        <div class="col-md-9">
-                            <textarea name="txtDescription" class="form-control" ><?php echo $prd->description?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="price" class="control-label col-md-3">Price:</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtPrice" class="form-control" value="<?php echo $prd->price; ?>">
-                        </div>
-                    </div> 
-                    <div class="form-group">
-                        <label for="price" class="control-label col-md-3">Stock:</label>
-                        <div class="col-md-9">
-                            <input type="text" name="txtStock" class="form-control" value="<?php echo $prd->unitInStock; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="picture" class="control-label col-md-3">Product picture:</label>
-                        <div class="col-md-9">
-                            <input type="file" name="filePic" class="form-control-file" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-md-offset-3">
-                            <input type="hidden" name="hdnProductId" value="<?php echo $prd->id;?>">
-                            <input type="hidden" name="hdnProductPic" value="<?php echo $prd->picture ?>">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="reset" class="btn btn-danger">Reset</button>
+                        <div class="col-md-2">
+                            <button name="submit" class="btn btn-block btn-success">
+                                <i class="glyphicon glyphicon-search"></i> Go!
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
-            
         </div>
+        <?php
+            if(isset($_POST['submit'])){
+                $search = $_POST['txtSearch'];   //%case%
+                $sql = "SELECT * FROM product WHERE name LIKE '%$search%'";
+                //wildcard %  _   _hat  ==> what,  that, hat, chat, 
+                // %cat%  %at% ==> cats cat  that scratch 
+                //Regular Expression  RegEx
+                //Information Retrieval  ==> การค้นคืนสารสนเทศ
+                //NLP: Natural Language Processing
+        ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo $_POST['txtSearch'];?>
+                </div>
+            </div>
+        <?php
+            }
+        ?>
+        
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    
 </body>
 </html>
